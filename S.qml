@@ -11,7 +11,7 @@ Item {
         opacity: 0.0
         Behavior on opacity{NumberAnimation{duration:500}}
         text:'<b>Elemento QML</b><br><b>X1 Item{}</b>'
-        anchors.centerIn: r 
+        anchors.centerIn: r
         font.pixelSize: app.fs*2
         color: app.c2
         horizontalAlignment: Text.AlignHCenter
@@ -66,24 +66,123 @@ Item {
         width: r.width-app.fs
         anchors.centerIn: r
         opacity: 0.0
-        spacing: app.fs
+        spacing: app.fs*0.25
         Behavior on opacity{NumberAnimation{duration:500}}
         Text{
-            text:'<b>Posicionador</b><br><b>Contenedor</b>'
+            text:'<b>Posicionador y Contenedor</b>'
             font.pixelSize: app.fs
             color: app.c2
         }
         Row{
-            spacing: app.fs*0.5
-            Item{
-                width: app.fs*8
-                height: width
-                Marco{}
+            spacing: app.fs
+            anchors.horizontalCenter: parent.horizontalCenter
+            Xv{
+                id:xV1
+                width: app.fs*12
+                height: app.fs*8
+                Loader{
+                    objectName: 'Item 1'
+                    sourceComponent: item
+                    width: xV1.width*0.8
+                    height: xV1.height*0.8
+                    x:parseInt(app.fs*0.5)
+                    y: parseInt(app.fs*0.3)+xV1.tvh
+                }
             }
-            Item{
-                width: app.fs*8
+            Xv{
+                id:xV2
+                width: app.fs*12
+                height: app.fs*8
+                Loader{
+                    objectName:  'Item 2'
+                    sourceComponent: item
+                    width: xV1.width*0.5
+                    height: xV1.height*0.3
+                    x:parseInt(app.fs*0.5)
+                    y: parseInt(app.fs*0.3)+xV1.tvh
+                }
+                Loader{
+                    objectName:  'Item 3'
+                    sourceComponent: item
+                    width: xV1.width*0.5
+                    height: xV1.height*0.3
+                    x:parseInt(app.fs*3)
+                    y: parent.height-height-xV1.tvh
+                }
+            }
+        }
+        Text{
+            text:'<b>Item NO TIENE BORDES.</b><br> Aquì los bordes destellan para saber la ubicaciòn del elemento Item.</b>'
+            font.pixelSize: app.fs*0.5
+            color: app.c2
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+
+    Component{
+        id:item
+        Rectangle{
+            id:xItem
+            border.width: 1
+            border.color: app.c2
+            color: 'transparent'
+            property string t: 'Item'
+            Rectangle{
+                width: parent.width*0.35
                 height: width
-                Marco{}
+                radius: width*0.5
+                color: 'red'
+                border.width: app.fs*0.1
+                border.color: app.c2
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: app.fs*2
+                Text {
+                    text: 'Objeto de\nEjemplo '
+                    font.pixelSize: app.fs*0.3
+                    color: app.c2
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+            Rectangle{
+                width: parent.width*0.25
+                height: width
+                radius: width*0.5
+                color: 'blue'
+                border.width: app.fs*0.1
+                border.color: app.c2
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: 0-app.fs
+                Text {
+                    text: 'Objeto de\nEjemplo '
+                    font.pixelSize: app.fs*0.3
+                    color: app.c2
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+            Timer{
+                running: x3.opacity===1.0
+                repeat: true
+                interval: 1000
+                onTriggered: {
+                    xItem.border.width=xItem.border.width===1?0:1
+                }
+            }
+            Text {
+                x:app.fs*0.1
+                y:app.fs*0.1
+                text: '     '+parent.parent.objectName+'<br>    x='+parseInt(parent.parent.x)+' y='+parseInt(parent.parent.y)+' <br>    ancho='+parseInt(parent.width)+' alto='+parseInt(parent.height)
+                font.pixelSize: app.fs*0.3
+                color: 'red'
+                Rectangle{
+                    width: parent.width+app.fs*0.1
+                    height: parent.height+app.fs*0.1
+                    z:parent.z-1
+                    anchors.centerIn: parent
+                    radius: app.fs*0.1
+                }
             }
         }
     }
@@ -94,29 +193,64 @@ Item {
         width: r.width-app.fs
         anchors.centerIn: r
         opacity: 0.0
-        spacing: app.fs
+        spacing: app.fs*0.2
         Behavior on opacity{NumberAnimation{duration:500}}
         Text{
             text:'<b>Còdigo QML - Elemento Item</b>'
             font.pixelSize: app.fs
             color: app.c2
         }
-        Text{
-            text:'import QtQuick 2.0\nItem{}\n'
-            font.pixelSize: app.fs
-            color: app.c2
+        Column{
+            spacing: app.fs*0.1
+            Text{
+                text:'import QtQuick 2.0'
+                font.pixelSize: app.fs
+                color: app.c2
+            }
+            Text{
+                id:txt2
+                text:'Item{'
+                font.pixelSize: app.fs
+                color: app.c2
+            }
+            Text{
+                text:'      x:10\n      y:15 '
+                font.pixelSize: app.fs
+                color: app.c2
+                Marco{id:mm100;padding:app.fs*0.1}
+            }
+            Text{
+                text:'      width:10'
+                font.pixelSize: app.fs
+                color: app.c2
+                Marco{id:mm101;padding:app.fs*0.1}
+            }
+            Text{
+                text:'      height:10'
+                font.pixelSize: app.fs
+                color: app.c2
+                Marco{id:mm102;padding:app.fs*0.1}
+            }
+            Text{
+                text:'      visible:true'
+                font.pixelSize: app.fs
+                color: app.c2
+                Marco{id:mm103;padding:app.fs*0.1}
+            }
+            Text{
+                text:'      opacity:10'
+                font.pixelSize: app.fs
+                color: app.c2
+                Marco{id:mm104;padding:app.fs*0.1}
+            }
+            Text{
+                text:'}'
+                font.pixelSize: app.fs
+                color: app.c2
+            }
         }
     }
 
-    //Aviso
-    Text{
-        id:xAviso
-        text:'<b>Secciòn en Construcciòn</b><br>Se modificarà audio y animaciones...'
-        anchors.horizontalCenter: r.horizontalCenter
-        font.pixelSize: app.fs*2
-        color: 'red'
-        horizontalAlignment: Text.AlignHCenter
-    }
     Timer{
         running: r.visible
         repeat: true
@@ -142,7 +276,45 @@ Item {
                 txtVer.text='2.0'
             }
 
-            x3.opacity=app.p(47, 500)?1.0:0.0
+            x3.opacity=app.p(47, 56)?1.0:0.0
+            x4.opacity=app.p(56, 71)?1.0:0.0
+            if(app.p(57, 62)){
+                mm100.opacity=1.0
+                mm101.opacity=0.0
+                mm102.opacity=0.0
+                mm103.opacity=0.0
+                mm104.opacity=0.0
+            }else if(app.p(62, 64)){
+                mm100.opacity=0.0
+                mm101.opacity=1.0
+                mm102.opacity=0.0
+                mm103.opacity=0.0
+                mm104.opacity=0.0
+            }else if(app.p(64, 66)){
+                mm100.opacity=0.0
+                mm101.opacity=0.0
+                mm102.opacity=1.0
+                mm103.opacity=0.0
+                mm104.opacity=0.0
+            }else if(app.p(66, 68)){
+                mm100.opacity=0.0
+                mm101.opacity=0.0
+                mm102.opacity=0.0
+                mm103.opacity=1.0
+                mm104.opacity=0.0
+            }else if(app.p(68, 70)){
+                mm100.opacity=0.0
+                mm101.opacity=0.0
+                mm102.opacity=0.0
+                mm103.opacity=0.0
+                mm104.opacity=1.0
+            }else{
+                mm100.opacity=0.0
+                mm101.opacity=0.0
+                mm102.opacity=0.0
+                mm103.opacity=0.0
+                mm104.opacity=0.0
+            }
         }
     }
     function e(n){
@@ -153,7 +325,7 @@ Item {
         return sp
     }
     Component.onCompleted: {
-        controles.asec=[0, 6,47]
+        controles.asec=[0, 6,47,56]
         var at=''
         at+=e(10)
         //Pr
@@ -163,11 +335,11 @@ Item {
         at+='\n' //Req
         at+='Para utilizar este elemento es necesario importar la librerìa QtQuick. Podemos utilizar la versiones compatibles con unik y este curso tales como la versiòn 1.4, 2.0 hasta 2.5. Para unik recomendamos la versiòn 2.0. Si quieres puedes experimentar e importar versiones posteriores a las mencionadas pero no te podemos garantizar su funcionalidad. '
 
-       at+=e(2)
+        at+=e(2)
         at+='\n' //Q
         at+='Item Es un elemento posicionador y contenedor'
 
-       at+=e(2)
+        at+=e(2)
         at+='\n' //PP
         at+='Sus propiedades principales son ejes de posicionamiento x e y, ancho, alto, visible y opacidad'
 
@@ -194,6 +366,6 @@ Los cambios en las propiedades del elemento Item contenedor afectaràn a sus ele
 
 Conocer lo màximo posible este elemento Item, nos facilitarà muchìsimo la comprensiòn de casi la totalidad de los elementos de QML. Este elemento se llama Item porque es la palabra que se utiliza para hacer referencia a un artìculo, pàrrafo, apartado, secciòn, cosa, objeto o  parte de un texto o escrito por ejemplo en la literatura.'
 
-    xT.at=at.replace(/\n/g, ' ')
+        xT.at=at.replace(/\n/g, ' ')
     }
 }
