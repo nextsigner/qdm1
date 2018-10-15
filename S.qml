@@ -120,72 +120,6 @@ Item {
         }
     }
 
-    Component{
-        id:item
-        Rectangle{
-            id:xItem
-            border.width: 1
-            border.color: app.c2
-            color: 'transparent'
-            property string t: 'Item'
-            Rectangle{
-                width: parent.width*0.35
-                height: width
-                radius: width*0.5
-                color: 'red'
-                border.width: app.fs*0.1
-                border.color: app.c2
-                anchors.centerIn: parent
-                anchors.horizontalCenterOffset: app.fs*2
-                Text {
-                    text: 'Objeto de\nEjemplo '
-                    font.pixelSize: app.fs*0.3
-                    color: app.c2
-                    anchors.centerIn: parent
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-            Rectangle{
-                width: parent.width*0.25
-                height: width
-                radius: width*0.5
-                color: 'blue'
-                border.width: app.fs*0.1
-                border.color: app.c2
-                anchors.centerIn: parent
-                anchors.horizontalCenterOffset: 0-app.fs
-                Text {
-                    text: 'Objeto de\nEjemplo '
-                    font.pixelSize: app.fs*0.3
-                    color: app.c2
-                    anchors.centerIn: parent
-                    horizontalAlignment: Text.AlignHCenter
-                }
-            }
-            Timer{
-                running: x3.opacity===1.0
-                repeat: true
-                interval: 1000
-                onTriggered: {
-                    xItem.border.width=xItem.border.width===1?0:1
-                }
-            }
-            Text {
-                x:app.fs*0.1
-                y:app.fs*0.1
-                text: '     '+parent.parent.objectName+'<br>    x='+parseInt(parent.parent.x)+' y='+parseInt(parent.parent.y)+' <br>    ancho='+parseInt(parent.width)+' alto='+parseInt(parent.height)
-                font.pixelSize: app.fs*0.3
-                color: 'red'
-                Rectangle{
-                    width: parent.width+app.fs*0.1
-                    height: parent.height+app.fs*0.1
-                    z:parent.z-1
-                    anchors.centerIn: parent
-                    radius: app.fs*0.1
-                }
-            }
-        }
-    }
 
     //4
     Column{
@@ -251,6 +185,223 @@ Item {
         }
     }
 
+    //5
+    Column{
+        id:x5
+        width: r.width-app.fs
+        anchors.centerIn: r
+        opacity: 0.0
+        spacing: app.fs*0.25
+        Behavior on opacity{NumberAnimation{duration:500}}
+
+        Row{
+            spacing: app.fs
+            anchors.horizontalCenter: parent.horizontalCenter
+            Column{
+                Text{
+                    text:'<b>Còdigo QML - Elemento Item</b>'
+                    font.pixelSize: app.fs
+                    color: app.c2
+                }
+                Column{
+                    spacing: app.fs*0.1
+                    Text{
+                        text:'import QtQuick 2.0'
+                        font.pixelSize: app.fs
+                        color: app.c2
+                    }
+                    Text{
+                        text:'Item{'
+                        font.pixelSize: app.fs
+                        color: app.c2
+                    }
+                    Text{
+                        text:'      x:10\n      y:15 '
+                        font.pixelSize: app.fs
+                        color: app.c2
+                        Marco{
+                            id:mm200;padding:app.fs*0.1
+                            Text{
+                                text:'Posiciòn'
+                                font.pixelSize: app.fs
+                                color: app.c2
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.right
+                                anchors.leftMargin: app.fs
+                            }
+                        }
+                    }
+                    Text{
+                        text:'      width:'+parseInt(item3.width)+'\n      height: '+parseInt(item3.height)
+                        font.pixelSize: app.fs
+                        color: app.c2
+                        Marco{
+                            id:mm201;
+                            padding:app.fs*0.1
+                            Text{
+                                text:'Dimensiones'
+                                font.pixelSize: app.fs
+                                color: app.c2
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.right
+                                anchors.leftMargin: app.fs
+                            }
+                        }
+                    }
+                    Text{
+                        text:'      visible:'+item3.visible
+                        font.pixelSize: app.fs
+                        color: app.c2
+                        Marco{id:mm202;padding:app.fs*0.1}
+                    }
+                    Text{
+                        text:'      opacity:'+parseFloat(item3.opacity).toFixed(1)
+                        font.pixelSize: app.fs
+                        color: app.c2
+                        Marco{id:mm203;padding:app.fs*0.1}
+                    }
+                    Text{
+                        text:'}'
+                        font.pixelSize: app.fs
+                        color: app.c2
+                    }
+                }
+            }
+            Xv{
+                id:xV3
+                width: app.fs*12
+                height: app.fs*8
+                anchors.verticalCenter: parent.verticalCenter
+                Loader{
+                    id:item3
+                    objectName: 'Item 3'
+                    sourceComponent: item
+                    width: app.fs*5.5
+                    height: app.fs*3.5
+                    x:parseInt(app.fs)
+                    y: parseInt(app.fs*0.3)+xV1.tvh
+                    property int demo: -1
+                    Behavior on x{NumberAnimation{duration:700}}
+                    Behavior on y{NumberAnimation{duration:700}}
+                    Behavior on width{NumberAnimation{duration:700}}
+                    Behavior on height{NumberAnimation{duration:700}}
+                }
+            }
+        }
+    }
+
+    Component{
+        id:item
+        Rectangle{
+            id:xItem
+            border.width: 1
+            border.color: app.c2
+            color: 'transparent'
+            property string t: 'Item'
+            Rectangle{
+                width: parent.width*0.35
+                height: width
+                radius: width*0.5
+                color: 'red'
+                border.width: app.fs*0.1
+                border.color: app.c2
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: app.fs*2
+                Text {
+                    text: 'Objeto de\nEjemplo '
+                    font.pixelSize: app.fs*0.3
+                    color: app.c2
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+            Rectangle{
+                width: parent.width*0.25
+                height: width
+                radius: width*0.5
+                color: 'blue'
+                border.width: app.fs*0.1
+                border.color: app.c2
+                anchors.centerIn: parent
+                anchors.horizontalCenterOffset: 0-app.fs
+                Text {
+                    text: 'Objeto de\nEjemplo '
+                    font.pixelSize: app.fs*0.3
+                    color: app.c2
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+            Timer{
+                running: x3.opacity===1.0 || x5.opacity===1.0
+                repeat: true
+                interval: x3.opacity===1.0?1000:500
+                property bool vi: true
+                onTriggered: {
+                    if(x3.opacity===1.0){
+                        xItem.border.width=xItem.border.width===1?0:1
+                    }else{
+                        if(item3.demo===0){
+                            vi=true
+                            interval=500
+                            if(item3.x<app.fs*3){
+                                item3.x=app.fs*3
+                            }else{
+                                item3.x=app.fs
+                            }
+                            if(item3.y<app.fs*3){
+                                item3.y=app.fs*3
+                            }else{
+                                item3.y=app.fs
+                            }
+                        }
+                        if(item3.demo===1){
+                            vi=true
+                            interval=500
+                            item3.x=app.fs
+                            item3.y=app.fs
+                            if(item3.width<app.fs*7){
+                                item3.width=app.fs*7
+                            }else{
+                                item3.width=app.fs*5.5
+                            }
+                            if(item3.height<app.fs*5){
+                                item3.height=app.fs*5
+                            }else{
+                                item3.height=app.fs*3.5
+                            }
+                        }
+                        if(item3.demo===2){
+                            vi=!vi
+                            interval=1000
+                            if(vi){
+                                item3.visible=false
+                            }else{
+                                item3.visible=true
+                            }
+                        }
+                    }
+
+                }
+            }
+            Text {
+                x:app.fs*0.1
+                y:app.fs*0.1
+                text: '     '+parent.parent.objectName+'<br>    x='+parseInt(parent.parent.x)+' y='+parseInt(parent.parent.y)+' <br>    ancho='+parseInt(parent.width)+' alto='+parseInt(parent.height)
+                font.pixelSize: app.fs*0.3
+                color: 'red'
+                Rectangle{
+                    width: parent.width+app.fs*0.1
+                    height: parent.height+app.fs*0.1
+                    z:parent.z-1
+                    anchors.centerIn: parent
+                    radius: app.fs*0.1
+                }
+            }
+        }
+    }
+
+
     Timer{
         running: r.visible
         repeat: true
@@ -315,6 +466,57 @@ Item {
                 mm103.opacity=0.0
                 mm104.opacity=0.0
             }
+
+            x5.opacity=app.p(71, 250)?1.0:0.0
+            if(app.p(71, 81)){
+                mm200.opacity=1.0
+                mm201.opacity=0.0
+                mm202.opacity=0.0
+                mm203.opacity=0.0
+            }else if(app.p(81, 93)){
+                mm200.opacity=0.0
+                mm201.opacity=1.0
+                mm202.opacity=0.0
+                mm203.opacity=0.0
+            }else if(app.p(106, 178)){
+                mm200.opacity=0.0
+                mm201.opacity=0.0
+                mm202.opacity=1.0
+                mm203.opacity=0.0
+            }else if(app.p(178, 250)){
+                mm200.opacity=0.0
+                mm201.opacity=0.0
+                mm202.opacity=0.0
+                mm203.opacity=1.0
+            }else{
+                mm200.opacity=0.0
+                mm201.opacity=0.0
+                mm202.opacity=0.0
+                mm203.opacity=0.0
+            }
+             if(app.p(71, 83)){
+                 item3.demo=0
+             }else if(app.p(83, 95)){
+                 item3.demo=1
+             }else if(app.p(106, 178)){
+                 item3.demo=2
+             }else if(app.p(178, 186)){
+                 item3.visible=true
+                 item3.opacity=0.3
+                item3.demo=-1
+             }else if(app.p(220, 227)){
+                 item3.visible=true
+                 item3.demo=-1
+                 item3.opacity=0.5
+             }else if(app.p(227, 255)){
+                 item3.visible=true
+                 item3.demo=-1
+                 item3.opacity=0.0
+             }else{
+                item3.visible=true
+                 item3.demo=-1
+                item3.opacity=1.0
+             }
         }
     }
     function e(n){
@@ -325,7 +527,7 @@ Item {
         return sp
     }
     Component.onCompleted: {
-        controles.asec=[0, 6,47,56]
+        controles.asec=[0, 6,47,56, 71]
         var at=''
         at+=e(10)
         //Pr
