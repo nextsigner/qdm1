@@ -317,6 +317,144 @@ Item {
         }
     }
 
+    //7
+    Row{
+        id:x7
+        // width: r.width-app.fs
+        anchors.centerIn: r
+        opacity: 0.0
+        spacing: app.fs*2
+        Behavior on opacity{NumberAnimation{duration:500}}
+        Text{
+            text:'<b>Elemento Item</b>'
+            font.pixelSize: app.fs
+            color: app.c2
+            anchors.verticalCenter: parent.verticalCenter
+            Marco{padding:app.fs}
+        }
+        Text{
+            font.family: 'FontAwesome'
+            text:'\uf101'
+            font.pixelSize: app.fs
+            color: app.c2
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Item{
+            width: col7.width
+            height: col7.height
+            Marco{
+                padding:app.fs
+                Text{
+                    text:'Heredan Propiedades\nMètodos y Caractarìsticas\ndel Elemento Item Base'
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pixelSize: app.fs*0.5
+                    color: app.c2
+                    anchors.bottom: parent.top
+                    anchors.bottomMargin: app.fs*0.5
+                }
+            }
+            Column{
+            id:col7
+            Repeater{
+                model: ['Rectangle{}', 'ListView{}', 'WebView{}', 'Text{}', 'TextInput{}', 'Image{}', 'Otros']
+                Text{
+                    text:'<b>'+modelData+'</b>'
+                    font.pixelSize: app.fs
+                    color: app.c2
+                }
+            }
+        }
+        }
+    }
+
+    //8
+    Row{
+        id:x8
+        anchors.centerIn: r
+        opacity: 0.0
+        spacing: app.fs*2
+        Behavior on opacity{NumberAnimation{duration:500}}
+        Item{
+            id:h1
+            width: col8.width
+            height: col8.height
+            Marco{padding:app.fs*0.5}
+            Column {
+                id:col8
+                spacing: app.fs*0.25
+                Text{
+                    text: '<b>Noticia de Ecologìa</b>'
+                    font.pixelSize: app.fs*0.7
+                    color: app.c2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Marco{visible:x8.mv===0;id:mmt1;padding:app.fs*0.2;bc:'red'}
+                }
+                Text{
+                    id:t8p1
+                    width: app.fs*20
+                    font.pixelSize: app.fs*0.5
+                    color: app.c2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    wrapMode: Text.WordWrap
+                    text:'Desde principios de los años \'80 EEUU ha elaborado un estudio sobre el Calentamiento Global. Sus resultados indicaban que habrìa desastres graves en el medio ambiente a principios del tercer milenio y a finales de la primer dècada de dicho milenio.'
+                Marco{visible:x8.mv===1;id:mmt2;padding:app.fs*0.2;bc:'red'}
+                }
+                Text{
+                    id:t8p2
+                    width: app.fs*20
+                    font.pixelSize: app.fs*0.5
+                    color: app.c2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    wrapMode: Text.WordWrap
+                    text:'Ya sobre el final de la segunda dècada del tercer milenio, los hechos han sorprendido incluso a los investigadores y cientìficos. El fenòmeno del Calentamiento Global no se han producido en su plenitud debido a la apariciòn de un nuevo fenòmeno medio ambiental. El Oscurecimiento Global.'
+               Marco{visible:x8.mv===2;id:mmt3;padding:app.fs*0.2;bc:'red'}
+                }
+
+                Row{
+                    spacing: app.fs
+                    Text{
+                        id:t8p3
+                        width: app.fs*10
+                        font.pixelSize: app.fs*0.5
+                        color: app.c2
+                        wrapMode: Text.WordWrap
+                        text:'Este nuevo fenòmeno climatològico, en un comienzo se ha considerado un hecho que frenarìa los daños provocados por el calentamiento global. Si bien esto es cierto, lamentablemente, a pesar de haber servido para detener el calentamiento global, ha traìdo consigo desastres naturales de igual o mayor proporciòn que el calentamiento global.'
+                    Marco{visible:x8.mv===3;id:mmt4;padding:app.fs*0.2;bc:'red'}
+                    }
+                    Image{
+                        width: app.fs*6
+                        source: 'f1.jpg'
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
+                        Marco{visible:x8.mv===4;id:mmt5;padding:app.fs*0.2;bc:'red'}
+                    }
+                }
+                Item{height: app.fs}
+                Text{
+                   font.pixelSize: app.fs*0.3
+                    color: app.c2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    wrapMode: Text.WordWrap
+                    text:'Fuente @nextsigner                Pàgina 1 de 87654'
+                    Marco{visible:x8.mv===5;id:mmt6;padding:app.fs*0.2;bc:'red'}
+                }
+
+            }
+        }
+        property int mv: -1
+        Timer{
+            running: x8.opacity===1.0
+            repeat: true
+            interval: 1000
+            onTriggered: {
+                if(x8.mv<5){
+                    x8.mv++
+                }else{
+                    x8.mv=0
+                }
+            }
+        }
+    }
 
     Component{
         id:item
@@ -628,6 +766,8 @@ Item {
             }
 
             x6.opacity=app.p(250, 371)?1.0:0.0
+            x7.opacity=app.p(371, 423)?1.0:0.0
+            x8.opacity=app.p(423, 449)?1.0:0.0
         }
     }
     function e(n){
@@ -638,7 +778,7 @@ Item {
         return sp
     }
     Component.onCompleted: {
-        controles.asec=[0, 6,47,56, 71, 250]
+        controles.asec=[0, 6,47,56, 71, 250, 371, 423]
         var at=''
         at+=e(10)
         //Pr
