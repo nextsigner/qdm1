@@ -290,6 +290,34 @@ Item {
         }
     }
 
+    //6
+    Column{
+        id:x6
+        // width: r.width-app.fs
+        anchors.centerIn: r
+        opacity: 0.0
+        spacing: app.fs*0.25
+        Behavior on opacity{NumberAnimation{duration:500}}
+        Xv{
+            id:xV4
+            tvh:app.fs
+            width: app.fs*20
+            height: r.height-app.fs*4
+            clip:false
+            Loader{
+                id:item4
+                objectName: 'Item 3'
+                sourceComponent: itemG
+                width: app.fs*10
+                height: app.fs*8.5
+                x:parseInt(app.fs*2.5)
+                y: parseInt(app.fs*3)+xV4.tvh
+                property int demo: -1
+            }
+        }
+    }
+
+
     Component{
         id:item
         Rectangle{
@@ -401,6 +429,87 @@ Item {
         }
     }
 
+    Component{
+        id:itemG
+        Rectangle{
+            id:xItemG
+            border.width: vi?2:0
+            border.color: app.c2
+            color: 'transparent'
+            property bool vi: true
+            Rectangle{
+                anchors.fill: parent
+                opacity:xItemG.vi?1.0:0.5
+                border.width: 2
+                border.color: app.c2
+                color: 'transparent'
+            }
+            Grid{
+                id:g1
+                anchors.centerIn: parent
+                columns: 3
+                spacing: app.fs*0.1
+                Repeater{
+                    model:['red', 'blue', 'brown', 'yellow', 'green','gray']
+                    Rectangle{
+                        width: app.fs*2
+                        height: width
+                        color: modelData
+                        Text{
+                            text:'Obj\n'+index
+                            font.pixelSize: parent.width*0.25
+                            anchors.centerIn: parent
+                        }
+                    }
+                }
+            }
+            Item{
+                id:mg1
+                anchors.fill: g1
+                opacity:!xItemG.vi?1.0:0.5
+                Rectangle{
+                    width: app.fs*0.5
+                    height: app.fs*0.1
+                    color:app.c2
+                    anchors.left: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                Marco{
+                    id:mmg1;
+                    padding:app.fs*0.2
+                    Text{
+                        text:'CHILDREN\nArray de Objetos'
+                        font.pixelSize: app.fs*0.5
+                        color: app.c2
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.right
+                        anchors.leftMargin: app.fs*0.5
+                        Marco{padding:app.fs*0.1}
+                    }
+                }
+            }
+            Text{
+                opacity:xItemG.vi?1.0:0.5
+                text:'Item como Elemento MADRE\n o PARENT de todos los elementos internos'
+                font.pixelSize: app.fs*0.5
+                color: app.c2
+                anchors.left: parent.left
+                anchors.leftMargin: app.fs*0.5
+                anchors.bottom: parent.top
+                anchors.bottomMargin: app.fs*0.5
+            }
+            Timer{
+                running: x6.opacity===1.0
+                repeat: true
+                interval: 3000
+                onTriggered: {
+                    xItemG.vi=!xItemG.vi
+                }
+            }
+        }
+    }
+
+
 
     Timer{
         running: r.visible
@@ -494,29 +603,31 @@ Item {
                 mm202.opacity=0.0
                 mm203.opacity=0.0
             }
-             if(app.p(71, 83)){
-                 item3.demo=0
-             }else if(app.p(83, 95)){
-                 item3.demo=1
-             }else if(app.p(106, 178)){
-                 item3.demo=2
-             }else if(app.p(178, 186)){
-                 item3.visible=true
-                 item3.opacity=0.3
-                item3.demo=-1
-             }else if(app.p(220, 227)){
-                 item3.visible=true
-                 item3.demo=-1
-                 item3.opacity=0.5
-             }else if(app.p(227, 255)){
-                 item3.visible=true
-                 item3.demo=-1
-                 item3.opacity=0.0
-             }else{
+            if(app.p(71, 83)){
+                item3.demo=0
+            }else if(app.p(83, 95)){
+                item3.demo=1
+            }else if(app.p(106, 178)){
+                item3.demo=2
+            }else if(app.p(178, 186)){
                 item3.visible=true
-                 item3.demo=-1
+                item3.opacity=0.3
+                item3.demo=-1
+            }else if(app.p(220, 227)){
+                item3.visible=true
+                item3.demo=-1
+                item3.opacity=0.5
+            }else if(app.p(227, 255)){
+                item3.visible=true
+                item3.demo=-1
+                item3.opacity=0.0
+            }else{
+                item3.visible=true
+                item3.demo=-1
                 item3.opacity=1.0
-             }
+            }
+
+            x6.opacity=app.p(250, 371)?1.0:0.0
         }
     }
     function e(n){
@@ -527,7 +638,7 @@ Item {
         return sp
     }
     Component.onCompleted: {
-        controles.asec=[0, 6,47,56, 71]
+        controles.asec=[0, 6,47,56, 71, 250]
         var at=''
         at+=e(10)
         //Pr
